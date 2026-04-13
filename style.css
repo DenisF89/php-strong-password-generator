@@ -24,10 +24,7 @@ body {
     margin-bottom: 30px;
 }
 
-.alert {
-    background-color: #d9edf7;
-    color: #4f6b7a;
-    border: 1px solid #c6e3f3;
+.custom-alert {
     border-radius: 6px;
     padding: 22px 24px;
     font-size: 1.2rem;
@@ -45,31 +42,6 @@ body {
     font-size: 1.2rem;
     color: #333;
     margin-bottom: 0;
-}
-
-.btn-custom-primary {
-    background-color: #4c7cf3;
-    border-color: #4c7cf3;
-    transition:all 0.3s ease;
-}
-
-.btn-custom-primary:hover {
-    background-color: #4c7cf3;
-    border-color: #3d6ce0;
-    filter: brightness(1.3);
-}
-
-.btn-custom-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
-    color: white;
-    transition:all 0.3s ease;
-}
-.btn-custom-secondary:hover {
-    background-color: #6c757d;
-    border-color: #5a6268;
-    color: white;
-    filter: brightness(1.3);
 }
 
 .checkbox-group,
