@@ -24,6 +24,14 @@ session_start();
 
 require_once 'functions.php';
 
+
+    $length = $_GET['length'] ?? '';
+    $repeat = $_GET['repeat'] ?? 'si';
+    $selectedCharacters = $_GET['characters'] ?? [];
+
+    $message = 'Nessun parametro valido inserito';
+
+
 if (isset($_GET['length']) && $_GET['length'] != ""){
     $_SESSION['password'] = generatePassword();
     header('Location: result.php');
@@ -37,35 +45,95 @@ if (isset($_GET['length']) && $_GET['length'] != ""){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <title>php-strong-password-generator</title>
 </head>
 <body>
 
+<div class="container-fluid wrapper">
+    <div class="container">
+        <h1 class="title">Strong Password Generator</h1>
+        <h2 class="subtitle">Genera una password sicura</h2>
 
+        <div class="alert alert-info" role="alert">
+            <?php echo $message; ?>
+        </div>
+
+<div class="form-card">
 <form action="" method="GET">
-    <label for="length">Lunghezza password:</label>
-    <input type="number" id="length" name="length" min="8" max="20"
-    value=<?php echo $_GET['length']??""?>>
-    <br>
-    <label for="repeat">Consenti ripetizioni di uno o più caratteri</label>
-    <input type="radio" id="repeat" name="repeat" value="si">
-    <label for="repeat">Si</label>
-    <input type="radio" id="repeat" name="repeat" value="no">
-    <label for="repeat">No</label>
-    <br>
+    <div class="row mb-4 align-items-center">
+        <div class="col-md-7">
+            <label for="length" class="form-label form-label-custom">Lunghezza password:</label>
+        </div>
+        <div class="col-md-3">
+            <input  type="number" class="form-control" id="length" name="length" 
+                    min="8" max="20" value=<?php echo $_GET['length']??""?>
+            >
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-7">
+            <label class="form-label form-label-custom">Consenti ripetizioni di uno o più caratteri:</label>
+        </div>
+        <div class="col-md-5 radio-group">
+            <div class="form-check">
+                <input  type="radio" class="form-check-input" id="repeat_yes" name="repeat" 
+                        value="si" <?php echo ($repeat === 'si') ? 'checked' : ''; ?>
+                >
+                <label class="form-check-label" for="repeat_yes">Si</label>
+            </div>
+            <div class="form-check">
+                <input  type="radio" class="form-check-input" id="repeat_no" name="repeat" 
+                        value="no" <?php echo ($repeat === 'no') ? 'checked' : ''; ?>
+                >
+                <label class="form-check-label" for="repeat_no">No</label>
+            </div>
+        </div>
+    </div>
+
     <!-- creo un array (characters[]) che ha per valore i tipi di caratteri selezionati (checked) -->
-    <label for="characters">Caratteri ammessi:</label>
-    <input type="checkbox" id="numbers" name="characters[]" value="numbers">
-    <label for="numbers">Numeri</label>
-    <input type="checkbox" id="lower" name="characters[]" value="lower">
-    <label for="lower">Lettere minuscole</label>
-    <input type="checkbox" id="upper" name="characters[]" value="upper">
-    <label for="upper">Lettere maiuscole</label>
-    <input type="checkbox" id="symbols" name="characters[]" value="symbols">
-    <label for="symbols">Simboli</label>
-    <br>    
-    <button type="submit">Genera Password</button>
+    <div class="row mb-5">
+        <div class="col-md-7">
+            <label class="form-label form-label-custom">Caratteri ammessi:</label>
+        </div>
+        <div class="col-md-5 checkbox-group">
+            <div class="form-check">
+                <input  type="checkbox" class="form-check-input" id="lower" name="characters[]" 
+                        value="lower" <?php echo in_array('lower', $selectedCharacters) ? 'checked' : ''; ?>
+                >
+                <label class="form-check-label" for="lower">Lettere</label>
+            </div>
+            <div class="form-check">
+                <input  type="checkbox" class="form-check-input" id="numbers" name="characters[]"
+                        value="numbers" <?php echo in_array('numbers', $selectedCharacters) ? 'checked' : ''; ?>
+                >
+                <label class="form-check-label" for="numbers">Numeri</label>
+            </div>
+            <div class="form-check">
+                <input  type="checkbox" class="form-check-input" id="symbols" name="characters[]"
+                        value="symbols" <?php echo in_array('symbols', $selectedCharacters) ? 'checked' : ''; ?>
+                >
+                <label class="form-check-label" for="symbols">Simboli</label>
+            </div>
+            <div class="form-check">
+                <input  type="checkbox" class="form-check-input" id="upper" name="characters[]"
+                        value="upper" <?php echo in_array('upper', $selectedCharacters) ? 'checked' : ''; ?>
+                >
+                <label class="form-check-label" for="upper">Lettere maiuscole</label>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-custom-primary px-4 py-2">Invia</button>
+        <button type="reset" class="btn btn-custom-secondary px-4 py-2">Annulla</button>
+    </div>
 </form>
-    
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
+
+
